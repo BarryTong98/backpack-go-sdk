@@ -1,5 +1,3 @@
-==================
-
 Introduction
 ------------
 
@@ -59,8 +57,6 @@ Usage
 -----
 
 To start the bot, run the following command from the root of the project directory:
-
-bashCopy code
 
 ``` bash
 go run main.go
