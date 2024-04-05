@@ -1,9 +1,10 @@
 package service
 
 import (
-	"backpack-trade-bot/types"
 	"encoding/json"
 	"strconv"
+
+	"backpack-trade-bot/types"
 )
 
 func (c *BackpackClient) GetAssets() ([]*types.Asset, error) {

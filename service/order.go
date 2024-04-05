@@ -1,9 +1,10 @@
 package service
 
 import (
-	"backpack-trade-bot/types"
 	"encoding/json"
 	"strconv"
+
+	"backpack-trade-bot/types"
 )
 
 func (c *BackpackClient) GetOpenOrder(clientId uint32, orderId, symbol string) (*types.Order, error) {

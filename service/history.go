@@ -1,9 +1,10 @@
 package service
 
 import (
-	"backpack-trade-bot/types"
 	"encoding/json"
 	"strconv"
+
+	"backpack-trade-bot/types"
 )
 
 func (c *BackpackClient) GetOrderHistory(orderId, symbol string, offset, limit int64) ([]*types.OrderHistory, error) {

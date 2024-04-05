@@ -1,8 +1,9 @@
 package service
 
 import (
-	"backpack-trade-bot/types"
 	"encoding/json"
+
+	"backpack-trade-bot/types"
 )
 
 func (c *BackpackClient) Status() (*types.Status, error) {

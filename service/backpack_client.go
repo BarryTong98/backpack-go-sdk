@@ -1,10 +1,8 @@
 package service
 
 import (
-	"backpack-trade-bot/utils"
 	"bytes"
 	"crypto/ed25519"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -14,35 +12,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"backpack-trade-bot/utils"
 )
-
-// Utility function to decode a base64 encoded Ed25519 private key and verify it against the provided public key.
-func base64ToEd25519PrivateKey(privateKeyBase64 string) (ed25519.PrivateKey, error) {
-	keyBytes, err := base64.StdEncoding.DecodeString(privateKeyBase64)
-	if err != nil {
-		return nil, fmt.Errorf("error decoding private key from base64: %v", err)
-	}
-	if len(keyBytes) == ed25519.PrivateKeySize {
-		return ed25519.PrivateKey(keyBytes), nil
-	}
-	if len(keyBytes) == ed25519.SeedSize {
-		// Convert the seed (32 bytes) to a private key (64 bytes).
-		return ed25519.NewKeyFromSeed(keyBytes[:32]), nil
-	}
-	return nil, errors.New("invalid private key length")
-}
-
-// Utility function to decode a base64 encoded Ed25519 public key.
-func base64ToEd25519PublicKey(publicKeyBase64 string) (ed25519.PublicKey, error) {
-	keyBytes, err := base64.StdEncoding.DecodeString(publicKeyBase64)
-	if err != nil {
-		return nil, fmt.Errorf("error decoding public key from base64: %v", err)
-	}
-	if len(keyBytes) != ed25519.PublicKeySize {
-		return nil, errors.New("invalid public key length")
-	}
-	return ed25519.PublicKey(keyBytes), nil
-}
 
 // BackpackClient structure to hold client configuration.
 type BackpackClient struct {
@@ -53,12 +25,12 @@ type BackpackClient struct {
 
 // NewBackpackClient creates a new BackpackClient instance after validating the provided keys.
 func NewBackpackClient(config *Config) (*BackpackClient, error) {
-	privateKey, err := base64ToEd25519PrivateKey(config.APIConfig.APISecret)
+	privateKey, err := utils.Base64ToEd25519PrivateKey(config.APIConfig.APISecret)
 	if err != nil {
 		return nil, err
 	}
 
-	publicKey, err := base64ToEd25519PublicKey(config.APIConfig.APIKey)
+	publicKey, err := utils.Base64ToEd25519PublicKey(config.APIConfig.APIKey)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +94,7 @@ func (c *BackpackClient) MakePublicAPIRequest(method, endpoint string, params ma
 func (c *BackpackClient) MakeAuthenticatedAPIRequest(method, endpoint, instruction string, params map[string]string) ([]byte, error) {
 	// Prepare the request
 	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
-	signature, err := c.SignMessage(method, endpoint, params, timestamp, instruction, DefaultTimeoutMs)
+	signature, err := c.SignMessage(params, timestamp, instruction, DefaultTimeoutMs)
 	if err != nil {
 		return nil, err
 	}

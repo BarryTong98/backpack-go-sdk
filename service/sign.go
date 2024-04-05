@@ -12,7 +12,7 @@ import (
 
 const DefaultTimeoutMs = 5000
 
-func (c *BackpackClient) SignMessage(method, endpoint string, params map[string]string, timestamp int64, instruction string, window int64) (string, error) {
+func (c *BackpackClient) SignMessage(params map[string]string, timestamp int64, instruction string, window int64) (string, error) {
 	// Ensure window defaults to DEFAULT_TIMEOUT_MS if not specified
 	if window == 0 {
 		window = DefaultTimeoutMs
