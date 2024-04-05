@@ -47,7 +47,7 @@ func (c *BackpackClient) SignMessage(params map[string]string, timestamp int64, 
 	return base64.StdEncoding.EncodeToString(signature), nil
 }
 
-func (c *BackpackClient) SignInterfaceMessage(method, endpoint string, params map[string]string, timestamp int64, instruction string, window int64) (string, error) {
+func (c *BackpackClient) SignInterfaceMessage(params map[string]string, timestamp int64, instruction string, window int64) (string, error) {
 	// Ensure window defaults to DEFAULT_TIMEOUT_MS if not specified
 	if window == 0 {
 		window = DefaultTimeoutMs
