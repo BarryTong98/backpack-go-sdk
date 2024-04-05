@@ -87,7 +87,7 @@ func (c *BackpackClient) GetOpenOrder(clientId uint32, orderId, symbol string) (
 // Trigger price if this is a conditional order.
 //
 // Example: ExecuteOrder(0, "Limit", false, "0.0002", "100000", "", "", "Bid", "WEN_USDC", "", "")
-func (c *BackpackClient) ExecuteOrder(clientId uint32, orderType string, postOnly bool, price, quantity, quoteQuantity, selfTradePrevention, side, symbol, timeInForce, triggerPrice string) (*types.ExecuteOrder, error) {
+func (c *BackpackClient) ExecuteOrder(clientId uint32, orderType string, postOnly bool, price, quantity, quoteQuantity, selfTradePrevention, side, symbol, timeInForce, triggerPrice string) (*types.Order, error) {
 	params := map[string]interface{}{
 		"orderType": orderType,
 		"side":      side,
@@ -128,7 +128,7 @@ func (c *BackpackClient) ExecuteOrder(clientId uint32, orderType string, postOnl
 		return nil, err
 	}
 
-	var order *types.ExecuteOrder
+	var order *types.Order
 	err = json.Unmarshal(resp, &order)
 	if err != nil {
 		return nil, err

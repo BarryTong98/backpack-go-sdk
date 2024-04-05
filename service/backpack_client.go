@@ -157,7 +157,7 @@ func (c *BackpackClient) MakeAuthenticatedAPIInterfaceRequest(method, endpoint, 
 	if err != nil {
 		return nil, err
 	}
-	signature, err := c.SignInterfaceMessage(method, endpoint, strParams, timestamp, instruction, DefaultTimeoutMs)
+	signature, err := c.SignInterfaceMessage(strParams, timestamp, instruction, DefaultTimeoutMs)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@ package types
 type Order struct {
 	OrderType             string `json:"orderType"`
 	Id                    string `json:"id"`
-	ClientId              int    `json:"clientId"`
+	ClientId              uint32 `json:"clientId"`
 	Symbol                string `json:"symbol"`
 	Side                  string `json:"side"`
 	Quantity              string `json:"quantity"`
@@ -14,21 +14,7 @@ type Order struct {
 	TimeInForce           string `json:"timeInForce"`
 	SelfTradePrevention   string `json:"selfTradePrevention"`
 	Status                string `json:"status"`
-	CreatedAt             int    `json:"createdAt"`
-}
-
-type ExecuteOrder struct {
-	ClientId            int    `json:"clientId"`
-	OrderType           string `json:"orderType"`
-	PostOnly            bool   `json:"postOnly"`
-	Price               string `json:"price"`
-	Quantity            string `json:"quantity"`
-	QuoteQuantity       string `json:"quoteQuantity"`
-	SelfTradePrevention string `json:"selfTradePrevention"`
-	Side                string `json:"side"`
-	Symbol              string `json:"symbol"`
-	TimeInForce         string `json:"timeInForce"`
-	TriggerPrice        string `json:"triggerPrice"`
+	CreatedAt             int64  `json:"createdAt"`
 }
 
 type OrderHistory struct {
@@ -47,7 +33,7 @@ type OrderHistory struct {
 }
 
 type HistoricalFill struct {
-	TradeId   int    `json:"tradeId"`
+	TradeId   uint32 `json:"tradeId"`
 	OrderId   string `json:"orderId"`
 	Symbol    string `json:"symbol"`
 	Side      string `json:"side"`
